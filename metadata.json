@@ -1,0 +1,6 @@
+{
+  "name": "Mirrorly",
+  "description": "认知记录与反思对话工具。通过温和启发引导，AI 读取用户碎片学识背景开展多轮反思、自动提炼思维观察模式。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
