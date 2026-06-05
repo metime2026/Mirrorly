@@ -1,20 +1,33 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Mirrorly
 
-# Run and deploy your AI Studio app
+认知记录与反思对话工具。通过温和启发引导，AI 读取你的学识背景开展多轮反思，并自动提炼思维观察模式。
 
-This contains everything you need to run your app locally.
+## 技术栈
 
-View your app in AI Studio: https://ai.studio/apps/3a950917-a1a7-4173-a61c-762fda10e48b
+- **前端**：React + Vite + Tailwind
+- **后端**：Vercel Serverless Functions
+- **数据库**：PostgreSQL（Neon / Vercel Postgres）
+- **AI**：Google Gemini
 
-## Run Locally
+## 本地开发
 
-**Prerequisites:**  Node.js
+```bash
+npm install
+cp .env.example .env.local
+# 编辑 .env.local：POSTGRES_URL、GEMINI_API_KEY、MIRRORLY_PASSWORD
 
+npm run db:migrate
+npm run dev
+```
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- 应用：http://localhost:5173  
+- 首次打开输入 `MIRRORLY_PASSWORD` 登录
+
+## 部署到 Vercel
+
+详见 **[docs/VERCEL_DEPLOY.md](docs/VERCEL_DEPLOY.md)**。
+
+## 文档
+
+- [docs/VERCEL_DEPLOY.md](docs/VERCEL_DEPLOY.md) — 生产部署与环境变量
+- [docs/BACKEND.md](docs/BACKEND.md) — API 说明（历史参考，以 Vercel 版为准）

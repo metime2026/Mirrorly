@@ -13,6 +13,8 @@ import LibraryView from './components/LibraryView';
 import AskAIView from './components/AskAIView';
 import EntryForm from './components/EntryForm';
 import { ToastContainer } from './components/Toast';
+import LoginGate from './components/LoginGate';
+import { apiFetch } from './lib/api';
 
 export default function App() {
   // Navigation Tabs: 'home' | 'library' | 'chat'
@@ -42,13 +44,13 @@ export default function App() {
   // 1. Load active data from server
   const loadDatabase = async () => {
     try {
-      const resEntries = await fetch('/api/entries');
+      const resEntries = await apiFetch('/api/entries');
       const dataEntries = await resEntries.json();
       if (Array.isArray(dataEntries)) {
         setEntries(dataEntries);
       }
 
-      const resTags = await fetch('/api/tags');
+      const resTags = await apiFetch('/api/tags');
       const dataTags = await resTags.json();
       if (Array.isArray(dataTags)) {
         setExistingTags(dataTags.map(item => item.tag));
@@ -66,11 +68,11 @@ export default function App() {
   }, []);
 
   // 2. Add / Edit Record controller
-  const handleSaveEntry = async (data: { content: string; insight: string; source: string; tags: string[] }) => {
+  const handleSaveEntry = async (data: { content: string; insight: string; source: string; tags: string[]; emotion?: string }) => {
     try {
       if (entryToEdit) {
         // Edit Mode
-        const res = await fetch(`/api/entries/${entryToEdit.id}`, {
+        const res = await apiFetch(`/api/entries/${entryToEdit.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -86,7 +88,7 @@ export default function App() {
         }
       } else {
         // Create Mode
-        const res = await fetch('/api/entries', {
+        const res = await apiFetch('/api/entries', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)
@@ -110,7 +112,7 @@ export default function App() {
   // 3. Delete Record controller
   const handleDeleteEntry = async (id: string) => {
     try {
-      const res = await fetch(`/api/entries/${id}`, { method: 'DELETE' });
+      const res = await apiFetch(`/api/entries/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setEntries(entries.filter(e => e.id !== id));
         loadDatabase();
@@ -128,6 +130,7 @@ export default function App() {
   };
 
   return (
+    <LoginGate>
     <div className="min-h-screen bg-[#FDFCFB] flex flex-col justify-between font-sans selection:bg-primary/20 select-none pb-24 md:pb-6">
       
       {/* Dynamic Sandbox header banner for evaluators */}
@@ -281,5 +284,6 @@ export default function App() {
       {/* Shared alert notify popups container */}
       <ToastContainer toasts={toasts} onClose={removeToast} />
     </div>
+    </LoginGate>
   );
 }

@@ -10,6 +10,7 @@ import {
   ArrowLeft, BrainCircuit, AlertTriangle, Check, BookOpen 
 } from 'lucide-react';
 import { Entry, Message } from '../types';
+import { apiFetch } from '../lib/api';
 
 interface AskAIViewProps {
   entries: Entry[];
@@ -39,7 +40,7 @@ export default function AskAIView({ entries, onToast, onOpenAddModal, embedMode 
   // Load existing session chat logs from server
   const fetchChatLogs = async () => {
     try {
-      const res = await fetch('/api/chat');
+      const res = await apiFetch('/api/chat');
       const data = await res.json();
       if (Array.isArray(data)) {
         setMessages(data);
@@ -73,7 +74,7 @@ export default function AskAIView({ entries, onToast, onOpenAddModal, embedMode 
     if (messages.length === 0) return;
     try {
       setIsResetting(true);
-      await fetch('/api/chat/reset', { method: 'POST' });
+      await apiFetch('/api/chat/reset', { method: 'POST' });
       setMessages([]);
       onToast('✓ 对话记录已清空', 'success');
     } catch (err) {
@@ -101,7 +102,7 @@ export default function AskAIView({ entries, onToast, onOpenAddModal, embedMode 
 
     // Call server-side Ask AI API with entire messages history
     try {
-      const res = await fetch('/api/chat', {
+      const res = await apiFetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ messages: nextMessages })

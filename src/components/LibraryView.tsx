@@ -10,6 +10,7 @@ import {
   Trash2, Edit, Calendar, Tag, ChevronRight, X, AlertTriangle, Plus, Clock 
 } from 'lucide-react';
 import { Entry } from '../types';
+import { apiFetch } from '../lib/api';
 
 interface LibraryViewProps {
   entries: Entry[];
@@ -40,7 +41,7 @@ export default function LibraryView({
   // 1. Fetch tags aggregation from the server
   const fetchTags = async () => {
     try {
-      const res = await fetch('/api/tags');
+      const res = await apiFetch('/api/tags');
       const data = await res.json();
       setActiveTags(data);
     } catch (err) {
@@ -53,7 +54,7 @@ export default function LibraryView({
     try {
       setLoading(true);
       const url = `/api/entries?search=${encodeURIComponent(searchQuery)}&sort=${sortBy}&tag=${encodeURIComponent(selectedTag)}`;
-      const res = await fetch(url);
+      const res = await apiFetch(url);
       const data = await res.json();
       setFilteredEntries(data);
     } catch (err) {

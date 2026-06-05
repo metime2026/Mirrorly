@@ -9,6 +9,7 @@ import {
   Sparkles, Calendar, BookOpen, Clock, AlertCircle, PlusCircle, CheckCircle
 } from 'lucide-react';
 import { Entry } from '../types';
+import { apiFetch } from '../lib/api';
 
 interface DashboardViewProps {
   entries: Entry[];
@@ -60,7 +61,8 @@ export default function DashboardView({
       if (forceRefresh) setIsRefreshing(true);
       else setLoadingObs(true);
 
-      const res = await fetch('/api/observation');
+      const url = forceRefresh ? '/api/observation?refresh=true' : '/api/observation';
+      const res = await apiFetch(url);
       const data = await res.json();
       setObservation(data);
     } catch (err) {
@@ -205,7 +207,7 @@ export default function DashboardView({
   const handleImportSampleData = async () => {
     try {
       setIsDemoWorking(true);
-      const res = await fetch('/api/seed', { method: 'POST' });
+      const res = await apiFetch('/api/seed', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         onToast('✓ 成功载入5条精选认知体系！', 'success');
@@ -225,7 +227,7 @@ export default function DashboardView({
     if (!window.confirm('您确定要清空数据库中所有的认知资料及对话记录吗？')) return;
     try {
       setIsDemoWorking(true);
-      const res = await fetch('/api/clear', { method: 'POST' });
+      const res = await apiFetch('/api/clear', { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         onToast('✓ 数据已重置清空。', 'success');
