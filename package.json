@@ -10,6 +10,8 @@
     "dev:vercel": "vercel dev",
     "build": "vite build",
     "db:migrate": "tsx scripts/migrate.ts",
+    "setup:vercel": "bash setup.sh",
+    "setup:full": "tsx scripts/full-setup.ts",
     "lint": "tsc --noEmit",
     "clean": "rm -rf dist"
   },
@@ -21,6 +23,7 @@
     "dotenv": "^17.2.3",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
+    "pg": "^8.21.0",
     "postgres": "^3.4.5",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
@@ -35,5 +38,22 @@
     "tsx": "^4.21.0",
     "typescript": "~5.8.2",
     "vercel": "^41.0.0"
-  }
+  },
+  "description": "认知记录与反思对话工具。通过温和启发引导，AI 读取你的学识背景开展多轮反思，并自动提炼思维观察模式。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metime2026/Mirrorly.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/metime2026/Mirrorly/issues"
+  },
+  "homepage": "https://github.com/metime2026/Mirrorly#readme"
 }

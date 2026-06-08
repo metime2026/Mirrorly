@@ -25,6 +25,12 @@ npm run dev
 
 ## 部署到 Vercel
 
+```bash
+# .env.local 中配置 GEMINI_API_KEY 后，一键同步到 Vercel
+vercel login   # 仅首次
+bash setup.sh
+```
+
 详见 **[docs/VERCEL_DEPLOY.md](docs/VERCEL_DEPLOY.md)**。
 
 ## 文档

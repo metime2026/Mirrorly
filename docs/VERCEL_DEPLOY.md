@@ -24,7 +24,23 @@
 
 ## 二、配置环境变量
 
-在 Vercel → **Settings** → **Environment Variables** 添加：
+### 方式 A：一键脚本（推荐）
+
+```bash
+# 1. 在 .env.local 中写好 GEMINI_API_KEY（仅配置一次）
+cp .env.example .env.local
+# 编辑 GEMINI_API_KEY=你的真实密钥
+
+# 2. 登录 Vercel（仅首次）
+vercel login
+
+# 3. 自动推送 GEMINI_API_KEY + MIRRORLY_PASSWORD 到 Vercel（无需交互输入）
+bash setup.sh
+```
+
+`MIRRORLY_PASSWORD` 若未设置，脚本会自动生成并写入 `.env.local` 与 Vercel。
+
+### 方式 B：在 Vercel 控制台手动添加
 
 | 变量 | 必填 | 说明 |
 |------|------|------|
