@@ -4,7 +4,7 @@
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { handleVercelApi } from '../lib/api/vercel';
+import { handleVercelApi } from '../lib/api/vercel.js';
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
   return handleVercelApi(req, res);
