@@ -12,7 +12,7 @@
   "functions": {
     "api/[...path].ts": {
       "maxDuration": 60,
-      "includeFiles": ["lib/**", "src/types.ts"]
+      "includeFiles": "lib/**,src/types.ts"
     }
   }
 }
